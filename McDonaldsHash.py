@@ -12,8 +12,8 @@ def base26ToBase10(input_string):
         base10_num += position_value * (26 ** (length - i - 1))
     return base10_num
 def stringToCoordinates(input_string):
-    lat_min, lat_max = 39.091999, 41.692447
-    lon_min, lon_max = -84.806049, -80.552847
+    lat_min, lat_max = 29.501657, 30.038077
+    lon_min, lon_max = -95.707054, -95.107910
 
     # Split the input string into two parts: even-indexed and odd-indexed characters
     lat_string = input_string[::2]  # Characters at even indices
@@ -76,18 +76,50 @@ def display_nearby_stores(data):
 
 def main():
     # Input string from the user
-    input_string = input("Enter a string to hash and find the nearest McDonald's: ")
+    #input_string = input("Enter a string to hash and find the nearest McDonald's: ")
 
     # Convert string to coordinates
-    lat, lon = stringToCoordinates(input_string)
-    print(f"Coordinates derived from the hash: Latitude={lat}, Longitude={lon}")
+    #lat, lon = stringToCoordinates(input_string)
+    #print(f"Coordinates derived from the hash: Latitude={lat}, Longitude={lon}")
 
     # Attempt to find the nearest McDonald's using the Node.js API
+    #try:
+    #    nearest_mcdonalds = find_nearest_mcdonalds(lat, lon)
+    #    display_nearby_stores(nearest_mcdonalds)
+    #except Exception as e:
+    #    print("Failed to find the nearest McDonald's:", e)
+    process_key_strings()
+
+def process_key_strings():
     try:
-        nearest_mcdonalds = find_nearest_mcdonalds(lat, lon)
-        display_nearby_stores(nearest_mcdonalds)
+        # Read the contents of the key_strings.txt file
+        with open('key_strings.txt', 'r') as file:
+            key_strings = [line.strip() for line in file if line.strip()]
+
+
+        # List to store the last two digits of phone numbers
+        results = []
+
+        # Process each key string
+        for key in key_strings:
+            lat, lon = stringToCoordinates(key)
+            nearest_mcdonalds=find_nearest_mcdonalds(lat, lon)
+            stores = nearest_mcdonalds['nearByStores']
+            for store in stores:
+                phone_number = store['phoneNumber']
+            last_two_digits = phone_number[-2:]
+            results.append(last_two_digits)
+
+
+        # Write the results to the hash_results.txt file
+        with open('hash_results.txt', 'w') as output_file:
+            for result in results:
+                output_file.write(result + '\n')
+
+        print("Processing complete. Results saved to hash_results.txt.")
+
     except Exception as e:
-        print("Failed to find the nearest McDonald's:", e)
+        print(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":
