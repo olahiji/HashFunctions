@@ -48,29 +48,6 @@ app.get('/nearest-mcdonalds', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch nearest McDonald\'s location' });
     }
 });
-app.get('/index-mcdonalds', async (req, res) => {
-    const {latitude, longitude} = req.query;
-    const lat = parseFloat(latitude);
-    const long = parseFloat(longitude);
-    try {
-        // Fetch McDonald's locations within the given radius
-        const locationData = await getLocations('mcdonalds', { lat: lat, long: long }, 1000, 1000);
-        console.log('Fetched location data:', JSON.stringify(locationData, null, 2));
-        // Extract the store numbers from the features
-        const storeNumbers = locationData.features.map(feature => feature.properties.identifierValue);
-
-        // Save the store numbers to a text file
-        const filePath = './mcdonalds_store_numbers.txt';
-        fs.writeFileSync(filePath, storeNumbers.join('\n'));
-
-        // Respond with the array of store numbers
-        res.json({ storeNumbers, message: 'Store numbers have been indexed and saved to the text file' });
-
-    } catch (error) {
-        console.error('Failed to fetch and index McDonald\'s locations:', error);
-        res.status(500).json({ error: 'Failed to index McDonald\'s locations' });
-    }
-});
 
 // Start the server
 app.listen(PORT, () => {
