@@ -112,7 +112,7 @@ def process_key_strings():
 
 
         # Write the results to the hash_results.txt file
-        with open('hash_results.txt', 'w') as output_file:
+        with open('mcdonalds_hash.txt', 'w') as output_file:
             for result in results:
                 output_file.write(result + '\n')
 
