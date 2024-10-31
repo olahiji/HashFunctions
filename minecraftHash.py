@@ -5,13 +5,11 @@ def minecraft_hash(input_string):
 
     try:
         response = requests.get(url)
-        # Check if the request was successful
+
         response.raise_for_status()
 
-        # Parse the JSON response
         data = response.json()
 
-        # Check if 'id' is in the response data
         if 'id' in data:
             print(f"ID for '{input_string.strip()}': {data['id']}")
         else:
@@ -25,17 +23,14 @@ def minecraft_hash(input_string):
         print(f"Error: Could not parse JSON response for '{input_string.strip()}'")
 
 
-# Load strings from file
 strings = []
 
 try:
     with open('key_strings.txt', 'r') as file:
-        # Strip newline characters and store in the list
         strings = [line.strip() for line in file.readlines()]
 except FileNotFoundError:
     print("The file 'key_strings.txt' was not found.")
 
-# Loop through each string in the list and call the function
 for i in range(len(strings)):
-    if strings[i]:  # Check if the string is not empty
+    if strings[i]:
         minecraft_hash(strings[i])
