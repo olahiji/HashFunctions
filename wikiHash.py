@@ -14,7 +14,7 @@ def wikipage(search_string):
         return None
 
 
-def first_sentence_length(essay):
+def first_sentence_length(essay): # Made by ChatGPT
     """Returns the length of the first sentence in the given essay."""
     # Use regex to split the essay at the end of sentences
     sentences = re.split(r'[.!?]', essay)

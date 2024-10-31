@@ -5,7 +5,7 @@ const fs = require('fs');
 const PORT = 3000;
 
 // Endpoint to get the nearest McDonald's location
-app.get('/nearest-mcdonalds', async (req, res) => {
+app.get('/nearest-mcdonalds', async (req, res) => { // Made by ChatGPT and me
     const { latitude, longitude } = req.query;
 
     // Validate latitude and longitude

@@ -1,5 +1,5 @@
 import requests
-def base26ToBase10(input_string):
+def base26ToBase10(input_string): # Made by ChatGPT
     # Convert the string to lowercase to handle case insensitivity
     input_string = input_string.lower()
     base10_num = 0
@@ -90,7 +90,7 @@ def main():
     #    print("Failed to find the nearest McDonald's:", e)
     process_key_strings()
 
-def process_key_strings():
+def process_key_strings(): # Made by ChatGPT
     try:
         # Read the contents of the key_strings.txt file
         with open('key_strings.txt', 'r') as file:
