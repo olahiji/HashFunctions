@@ -94,7 +94,13 @@ try:
 except FileNotFoundError:
     print("The file 'key_strings.txt' was not found.")
 
+results = []
+
 for i in range(len(strings)):
     if strings[i]:
-        print(get_historical_temperature(strings[i], api_key, valid_zip_codes))
+        results.append(get_historical_temperature(strings[i], api_key, valid_zip_codes))
+
+with open('weather_hash.txt', 'w') as output_file:
+    for result in results:
+        output_file.write(str(result) + '\n')
 
