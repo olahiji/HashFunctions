@@ -88,5 +88,13 @@ api_key = "0a590db06d52de92cc553f15b7b743c7"
 
 valid_zip_codes = load_zip_codes()
 
-random_string = "zipcode"
-print(get_historical_temperature(random_string, api_key, valid_zip_codes))
+try:
+    with open('key_strings.txt', 'r') as file:
+        strings = [line.strip() for line in file.readlines()]
+except FileNotFoundError:
+    print("The file 'key_strings.txt' was not found.")
+
+for i in range(len(strings)):
+    if strings[i]:
+        print(get_historical_temperature(strings[i], api_key, valid_zip_codes))
+
