@@ -107,8 +107,7 @@ def process_key_strings(): # Made by ChatGPT
             stores = nearest_mcdonalds['nearByStores']
             for store in stores:
                 phone_number = store['phoneNumber']
-            last_two_digits = phone_number[-2:]
-            results.append(last_two_digits)
+            results.append(phone_number)
 
 
         # Write the results to the hash_results.txt file

@@ -43,8 +43,15 @@ try:
 except FileNotFoundError:
     print("The file 'key_strings.txt' was not found.")
 
+results = []
+
+
 for string in strings:
     if string:
         string_id = minecraft_hash(string)
         if string_id:
-            print(f"Sigma for '{string}': {sigma(string_id)}")
+            results.append(string_id)
+
+with open('minecraft_hash.txt', 'w') as output_file:
+    for result in results:
+        output_file.write(result + '\n')
